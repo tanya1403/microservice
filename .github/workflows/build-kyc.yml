@@ -30,8 +30,8 @@ jobs:
           GPR_USER: ${{ secrets.GPR_USER }}
           GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
         run: |
-          ./gradlew :kyc:clean -Pgpr.user=$GPR_USER -Pgpr.key=$GPR_TOKEN
-          ./gradlew :kyc:build -Pgpr.user=$GPR_USER -Pgpr.key=$GPR_TOKEN
+          ./gradlew :kyc:clean
+          ./gradlew :public:shadowJar
 
       - name: Set Tag
         id: tag
