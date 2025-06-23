@@ -2,9 +2,10 @@ plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
 	kotlin("plugin.serialization") version "1.9.10"
-	war
 	id("org.springframework.boot") version "3.5.0"
 	id("io.spring.dependency-management") version "1.1.7"
+	id("com.github.johnrengelman.shadow") version "8.1.1"
+	id("application")
 }
 
 group = "com.homefirst"
@@ -16,16 +17,17 @@ java {
 	}
 }
 
+application {
+	mainClass.set("com.homefirst.kyc.MainApplicationKt")
+}
+
 repositories {
 	mavenCentral()
 	maven {
 		url = uri("https://maven.pkg.github.com/developernaolgithub/custom_apps_backend_utils")
 		credentials {
-//			username = project.findProperty("gpr.user") as String?
-//			password = project.findProperty("gpr.key") as String?
-
-			username = "tanya1403"
-			password = "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"
+			username = project.findProperty("gpr.user") as String? ?: System.getenv("GPR_USER")
+			password = project.findProperty("gpr.key") as String? ?: System.getenv("GPR_TOKEN")
 		}
 	}
 }
@@ -35,7 +37,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+//	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
 	// Kotlin
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

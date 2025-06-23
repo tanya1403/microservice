@@ -1,10 +1,9 @@
-FROM tomcat:10.1.29
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
-COPY build/libs/kyc-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/kyc.war
+
+COPY build/libs/kyc-0.0.1-SNAPSHOT-all.jar app.jar
 
 EXPOSE 8080
 
-RUN mkdir -p /var/www/files/
-
-CMD ["catalina.sh", "run"]
+CMD ["java", "-jar", "app.jar"]

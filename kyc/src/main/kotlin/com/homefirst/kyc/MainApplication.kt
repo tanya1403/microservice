@@ -30,7 +30,7 @@ class MainApplication
 fun main() {
     springContext = org.springframework.boot.runApplication<MainApplication>()
 
-    embeddedServer(Netty, port = 8081, module = Application::kycModule).start(wait = true)
+    embeddedServer(Netty, port = 8080, module = Application::kycModule).start(wait = true)
 }
 
 fun Application.kycModule() {

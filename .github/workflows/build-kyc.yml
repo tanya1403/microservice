@@ -26,9 +26,12 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build KYC Service
+        env:
+          GPR_USER: ${{ secrets.GPR_USER }}
+          GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
         run: |
           ./gradlew :kyc:clean
-          ./gradlew :kyc:build
+          ./gradlew :kyc:build -Pgpr.user=$GPR_USER -Pgpr.key=$GPR_TOKEN
 
       - name: Set Tag
         id: tag
