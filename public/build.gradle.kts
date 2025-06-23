@@ -2,9 +2,11 @@ plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
 	kotlin("plugin.serialization") version "1.9.10"
-	war
 	id("org.springframework.boot") version "3.5.0"
 	id("io.spring.dependency-management") version "1.1.7"
+	id("com.github.johnrengelman.shadow") version "8.1.1"
+	id("application")
+
 }
 
 group = "com.homefirst"
@@ -14,6 +16,10 @@ java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
+}
+
+application {
+	mainClass.set("com.homefirst.microservices.MicroservicesApplicationKt")
 }
 
 repositories {
@@ -35,7 +41,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 //	implementation("org.springframework.boot:spring-boot-starter-security")
 //	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+//	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
 	// Kotlin
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

@@ -30,7 +30,7 @@ jobs:
       - name: Build Public Service
         run: |
           ./gradlew :public:clean
-          ./gradlew :public:build
+          ./gradlew :public:shadowJar
 
       - name: Set Tag
         id: tag

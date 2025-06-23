@@ -1,6 +1,5 @@
 package com.homefirst.microservices
 
-import com.homefirst.microservices.controller.publicController
 import com.homefirst.microservices.route.publicRoutes
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
