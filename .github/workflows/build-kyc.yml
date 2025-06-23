@@ -41,7 +41,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_PRODUCTION_TOKEN }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: Build & Push KYC Docker Image
         uses: docker/build-push-action@v2
