@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
 
     steps:
       - name: Checkout
@@ -63,6 +65,6 @@ jobs:
           username: ${{ secrets.EC2_SSH_USERNAME }}
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/public-service:${{ env.TAG }}
-            docker stop kyc || true && docker rm kyc || true
-            docker run -d --name kyc -p 8445:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/public-service:${{ env.TAG }}
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/public-service:${{ needs.build.outputs.tag }}
+            docker stop public || true && docker rm public || true
+            docker run -d --name public -p 8445:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/public-service:${{ needs.build.outputs.tag }}
