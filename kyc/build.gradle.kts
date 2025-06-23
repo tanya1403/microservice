@@ -26,8 +26,8 @@ repositories {
 	maven {
 		url = uri("https://maven.pkg.github.com/developernaolgithub/custom_apps_backend_utils")
 		credentials {
-			username = project.findProperty("gpr.user") as String? ?: System.getenv("GPR_USER")
-			password = project.findProperty("gpr.key") as String? ?: System.getenv("GPR_TOKEN")
+			username = System.getenv("GPR_USER")
+			password = System.getenv("GPR_TOKEN")
 		}
 	}
 }
