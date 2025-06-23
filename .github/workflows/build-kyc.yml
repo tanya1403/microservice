@@ -23,7 +23,6 @@ jobs:
           distribution: 'adopt'
 
       - name: Build KYC Service
-        working-directory: ./kyc
         run: |
           ./gradlew :kyc:clean
           ./gradlew :kyc:build

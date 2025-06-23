@@ -23,7 +23,6 @@ jobs:
           distribution: 'adopt'
 
       - name: Build Public Service
-        working-directory: ./public
         run: |
           ./gradlew :public:clean
           ./gradlew :public:build
