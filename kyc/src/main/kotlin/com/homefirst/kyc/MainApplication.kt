@@ -2,13 +2,11 @@ package com.homefirst.kyc
 
 import com.homefirst.kyc.routes.kycRoutes
 import com.homefirst.kyc.service.KycService
-import homefirst.utilities.utils.UtilsOneResponse
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
@@ -23,9 +21,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 lateinit var springContext: ApplicationContext
 
 @SpringBootApplication
-@EntityScan(basePackages = ["com.homefirst.kyc.model","homefirst.utilities.model"])
-@EnableJpaRepositories(basePackages = ["com.homefirst.kyc.repository","homefirst.utilities.repository"])
-@ComponentScan("com.homefirst.kyc","homefirst.utilities")
+@EntityScan(basePackages = ["com.homefirst.kyc.model","com.homefirst.utilities.model"])
+@EnableJpaRepositories(basePackages = ["com.homefirst.kyc.repository","com.homefirst.utilities.repository"])
+@ComponentScan("com.homefirst.kyc","com.homefirst.utilities")
 class MainApplication
 fun main() {
     springContext = org.springframework.boot.runApplication<MainApplication>()

@@ -92,7 +92,7 @@ class DatabaseConfig {
     ): LocalContainerEntityManagerFactoryBean {
         return builder
             .dataSource(routingDataSource())
-            .packages("com.homefirst.kyc","homefirst.utilities")
+            .packages("com.homefirst.kyc","com.homefirst.utilities")
             .build()
     }
 

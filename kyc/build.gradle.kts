@@ -50,7 +50,7 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 
 	// External / Custom
-	implementation("com.homefirst:utilities:0.0.9")
+	implementation("com.homefirst:utilities:1.0.3")
 	implementation("org.json:json:20230227")
 	runtimeOnly("com.mysql:mysql-connector-j")
 
