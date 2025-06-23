@@ -1,4 +1,4 @@
-name: Build & Deploy KYC Service
+name: Build & Deploy Public Service
 
 on:
   push:
@@ -25,8 +25,8 @@ jobs:
       - name: Build Public Service
         working-directory: ./public
         run: |
-          ./gradlew clean
-          ./gradlew --no-daemon build
+          ./gradlew :public:clean
+          ./gradlew :public:build
 
       - name: Set Tag
         id: tag

@@ -25,8 +25,8 @@ jobs:
       - name: Build KYC Service
         working-directory: ./kyc
         run: |
-          ./gradlew clean
-          ./gradlew --no-daemon build
+          ./gradlew :kyc:clean
+          ./gradlew :kyc:build
 
       - name: Set Tag
         id: tag
