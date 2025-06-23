@@ -6,6 +6,7 @@ const val SESSION_PASSCODE = "sessionPasscode"
 const val ORG_ID = "orgId"
 const val CONTENT_TYPE_FORM_URLENCODED = "application/x-www-form-urlencoded"
 const val CONTENT_TYPE_APPLICATION_JSON = "application/json"
+const val THREAD_POOL_TASK_EXECUTOR = "threadPoolTaskExecutor"
 
 
 enum class EnExternalServiceName(val value: String) {
@@ -24,7 +25,8 @@ enum class EnUserRequestStatus(val value: String) {
 
 enum class EnExternalServiceType(val value: String) {
     OCR("OCR"),
-    VALIDATE("Validate");
+    VALIDATE("Validate"),
+    AUTHENTICATE("Authenticate"),
 }
 
 enum class Errors(val value: String) {
@@ -147,4 +149,22 @@ enum class EnS3BucketPath(val stringValue: String) {
     LOGS_SERVER2("HFO/Server2");
 }
 
+enum class EnMyObject(val value: String, val tag: String) {
+    KYC_DOCUMENT("KYCDocument","kyc"),
+    ITRV_DOCUMENT("ITRVDocument","itr"),
+    UTILITY_BILL("UtilityBill","bill"),
+    GSTIN("Gstin","gstin"),
+    VEHICLE_RC_INFO("VehicleRcInfo","vehicleRc"),
+    EPF_DETAIL("EpfDetail","epf");
+
+    companion object {
+        @Throws(Exception::class)
+        operator fun get(value: String): EnMyObject {
+            for (mo: EnMyObject in values()) {
+                if ((mo.value == value)) return mo
+            }
+            throw Exception("No Object mapped for value: $value")
+        }
+    }
+}
 

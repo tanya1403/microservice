@@ -34,11 +34,11 @@ fun main() {
 }
 
 fun Application.kycModule() {
-    install(CallLogging)
     install(ContentNegotiation) {
         json(Json {
             prettyPrint = true
             isLenient = true
+            ignoreUnknownKeys = true
         })
     }
     install(StatusPages) {

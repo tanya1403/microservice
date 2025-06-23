@@ -1,9 +1,11 @@
 package com.homefirst.kyc.routes
 
 import com.homefirst.kyc.dto.EPAuthRequest
+import com.homefirst.kyc.dto.PanAuthRequest
 import com.homefirst.kyc.service.KycService
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
@@ -48,8 +50,32 @@ fun Route.kycRoutes(
                 }
             }catch (e : Exception){
                 e.printStackTrace()
-                call.respond(HttpStatusCode.InternalServerError, "Aadhaar validation failed: ${e.message}")
+                call.respond( "Aadhaar validation failed: ${e.message}")
             }
         }
+
+        post("/authenticate.pan") {
+            val request = call.receive<PanAuthRequest>()
+            println("panAUth-->>${request}")
+
+            try {
+                println("panAUth-->>${request}")
+
+                val epAuthRequest = EPAuthRequest(call)
+
+                val result = kycService.authenticatePan(epAuthRequest, request.pan!!)
+
+                val responseStatus = result?.statusCode?.let { it1 -> HttpStatusCode.fromValue(it1.value()) }
+                val responseBody = result?.body ?: ""
+
+                if (responseStatus != null) {
+                    call.respond(responseStatus,responseBody)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                call.respond("Exception occurred while authenticating pan: ${e.message}")
+            }
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
+	kotlin("plugin.serialization") version "1.9.10"
 	war
 	id("org.springframework.boot") version "3.5.0"
 	id("io.spring.dependency-management") version "1.1.7"
@@ -59,13 +60,14 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
 	implementation("com.sun.activation:jakarta.activation:2.0.1")
 	implementation("org.hibernate:hibernate-core:6.3.1.Final")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.2.5") // or latest
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.2.5")
 	implementation("org.springframework.boot:spring-boot-starter:3.2.5")
 	implementation("org.springframework:spring-context:6.1.5")
 	implementation("com.squareup.okhttp3:okhttp:4.10.0")
 	implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
 	implementation("org.springframework.boot:spring-boot-starter-security")
-
+	implementation("com.homefirst:utilities:1.0.0")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
 }
 

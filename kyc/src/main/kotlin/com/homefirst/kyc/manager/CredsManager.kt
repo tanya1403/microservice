@@ -23,6 +23,7 @@ enum class EnPartnerName(val value: String) {
     KALEYRA_IO("KaleyraIO"),
     KALEYRA("Kaleyra"),
     DIGITAP("Digitap"),
+    KARZA("Karza"),
     DIGILOCKER("DigiLocker"),
     SHLINK("SHLINK"),
     MSG91("MSG91")

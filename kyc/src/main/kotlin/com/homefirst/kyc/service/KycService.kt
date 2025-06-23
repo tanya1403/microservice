@@ -6,7 +6,9 @@ import com.homefirst.kyc.dto.EPAuthRequest
 import com.homefirst.kyc.helper.PartnerLogHelper
 import com.homefirst.kyc.helper.UserActionStatus
 import com.homefirst.kyc.manager.ExternalServiceManager
+import com.homefirst.kyc.manager.KYCManager
 import com.homefirst.kyc.model.KYCDocument
+import com.homefirst.kyc.model.VehicleRcInfo
 import com.homefirst.kyc.repository.DocumentRepositoryMaster
 import com.homefirst.kyc.repository.ExternalServiceLogRepository
 import com.homefirst.kyc.utils.*
@@ -14,20 +16,26 @@ import homefirst.utilities.*
 import homefirst.utilities.utils.*
 import homefirst.utilities.utils.LoggerUtils.log
 import org.json.JSONObject
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 
 @Service
 class KycService(
-     val oneResponse: UtilsOneResponse,
-     val externalServiceManager : ExternalServiceManager,
-     val externalServiceLogRepository : ExternalServiceLogRepository,
-     val partnerLogHelper: PartnerLogHelper,
-     val digitapClient: DigitapClient,
-     val documentRepositoryMaster: DocumentRepositoryMaster,
-     val objectMapper: ObjectMapper
+    @Autowired val oneResponse: UtilsOneResponse,
+    @Autowired val externalServiceManager : ExternalServiceManager,
+    @Autowired val externalServiceLogRepository : ExternalServiceLogRepository,
+    @Autowired val partnerLogHelper: PartnerLogHelper,
+    @Autowired val digitapClient: DigitapClient,
+    @Autowired val documentRepositoryMaster: DocumentRepositoryMaster,
+    @Autowired val objectMapper: ObjectMapper,
+    @Autowired val kycManager: KYCManager
 
 ) {
+
+    private fun log(value: String) = LoggerUtils.log("v1/${this.javaClass.simpleName}.$value")
+
+
     @Throws(Exception::class)
     fun validateAadhaar(
         epAuthRequest: EPAuthRequest,
@@ -250,6 +258,79 @@ class KycService(
             JSONObject(objectMapper.writeValueAsString(kycDocument))
         )
 
+    }
+
+
+    //Karza
+
+    fun authenticatePan(epAuthRequest: EPAuthRequest, panNumber: String): ResponseEntity<String>? {
+
+        println("panNumber-->>${panNumber}")
+
+        val epLogger = partnerLogHelper.Builder(epAuthRequest)
+        println("epAuthRequest-->>${epAuthRequest}")
+
+        val apiCallResponse = kycManager.authenticatePan(epAuthRequest, panNumber)
+
+        if (!apiCallResponse.isSuccess) {
+            val msg = apiCallResponse.message
+            log("authenticatePan - $msg | Karza Response: ${apiCallResponse.message}")
+            epLogger.setRequestStatus(UserActionStatus.FAILURE)
+                .setResponseStatus(201)
+                .setServiceName(object {}.javaClass.enclosingMethod.name)
+                .setRequestDesc(msg)
+                .log()
+            return oneResponse.operationFailedResponse(msg)
+
+        }
+        val kycDocument = objectMapper.readValue(apiCallResponse.message, KYCDocument::class.java)
+
+        log("authenticatePan - Pan authenticated successfully!")
+
+        epLogger.setServiceName(object {}.javaClass.enclosingMethod.name)
+            .setResponseStatus(200)
+            .setRequestStatus(UserActionStatus.SUCCESS)
+            .log()
+
+        return oneResponse.getSuccessResponse(
+            JSONObject(
+                objectMapper.writeValueAsString(kycDocument)
+            )
+        )
+
+    }
+
+    fun authenticateVehicleRC(epAuthRequest: EPAuthRequest, regNumber: String): ResponseEntity<String>? {
+
+        val epLogger = partnerLogHelper.Builder(epAuthRequest)
+
+        val apiCallResponse = kycManager.authenticateVehicleRC(epAuthRequest, regNumber)
+
+        if (!apiCallResponse.isSuccess) {
+            val msg = apiCallResponse.message
+            log("authenticateVehicleRC - $msg | Karza Response: ${apiCallResponse.message}")
+            epLogger.setRequestStatus(UserActionStatus.FAILURE)
+                .setResponseStatus(201)
+                .setServiceName(object {}.javaClass.enclosingMethod.name)
+                .setRequestDesc(msg)
+                .log()
+
+            return oneResponse.operationFailedResponse(msg)
+        }
+
+        val vehicleRcInfo = objectMapper.readValue(apiCallResponse.message, VehicleRcInfo::class.java)
+
+        log("authenticateVehicleRC - authenticate Vehicle RC successfully!")
+
+        epLogger.setServiceName(object {}.javaClass.enclosingMethod.name)
+            .setResponseStatus(200)
+            .setRequestStatus(UserActionStatus.SUCCESS)
+            .log()
+
+        return oneResponse.getSuccessResponse(
+            JSONObject(objectMapper.writeValueAsString(vehicleRcInfo)
+            )
+        )
     }
 
 }

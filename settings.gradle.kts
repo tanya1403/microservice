@@ -1,3 +1,3 @@
 rootProject.name = "microservices"
 
-include("kyc")
+include("kyc","public")

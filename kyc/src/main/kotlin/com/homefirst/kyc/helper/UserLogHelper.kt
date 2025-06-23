@@ -3,8 +3,10 @@ package com.homefirst.kyc.helper
 import com.homefirst.kyc.dto.EPAuthRequest
 import com.homefirst.kyc.repository.PartnerMasterRepository
 import com.homefirst.kyc.model.PartnerLog
+import com.homefirst.kyc.utils.THREAD_POOL_TASK_EXECUTOR
 import homefirst.utilities.utils.LoggerUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.scheduling.annotation.Async
 import org.springframework.scheduling.annotation.EnableAsync
 import org.springframework.stereotype.Component
 
@@ -88,6 +90,11 @@ class PartnerLogHelper(
                 partnerLogs.clear()
             }
 
+        }
+
+        @Async(THREAD_POOL_TASK_EXECUTOR)
+        fun log() {
+            partnerMasterRepository.partnerLogRepository.save(epLog)
         }
 
     }
