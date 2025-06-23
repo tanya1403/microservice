@@ -1,0 +1,66 @@
+name: Build & Deploy KYC Service
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'kyc/**'
+      - '.github/workflows/build-kyc.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Build KYC Service
+        working-directory: ./kyc
+        run: |
+          ./gradlew clean
+          ./gradlew --no-daemon build
+
+      - name: Set Tag
+        id: tag
+        run: |
+          TAG=$(TZ='Asia/Kolkata' date +'%Y%m%d%H%M')
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "::set-output name=tag::$TAG"
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PRODUCTION_TOKEN }}
+
+      - name: Build & Push KYC Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./kyc
+          dockerfile: ./kyc/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/kyc-service:${{ env.TAG }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy KYC to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_SSH_HOST }}
+          username: ${{ secrets.EC2_SSH_USERNAME }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/kyc-service:${{ env.TAG }}
+            docker stop kyc || true && docker rm kyc || true
+            docker run -d --name kyc -p 8444:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/kyc-service:${{ env.TAG }}

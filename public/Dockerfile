@@ -1,7 +1,7 @@
 FROM tomcat:10.1.29
 
 WORKDIR /app
-COPY build/libs/kyc-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/kyc.war
+COPY build/libs/public-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/public.war
 
 EXPOSE 8080
 

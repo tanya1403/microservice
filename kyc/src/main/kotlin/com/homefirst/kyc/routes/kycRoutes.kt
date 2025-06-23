@@ -14,6 +14,11 @@ fun Route.kycRoutes(
 ) {
     route("/kyc") {
 
+        get("/hello") {
+            call.respond ("<html> " + "<title>" + "HomeFirst Microservice" + "</title>" + "<body><h1>"
+                    + "Successfully deployed KYC Service." + "</h1></body>" + "</html> ")
+        }
+
         get("/validate.aadhaar/{aadhaarNumber}") {
             val aadhaarNumber = call.parameters["aadhaarNumber"]
                 ?: return@get call.respond(HttpStatusCode.BadRequest, "aadhaarNumber missing")
