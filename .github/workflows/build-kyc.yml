@@ -31,7 +31,7 @@ jobs:
           GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
         run: |
           ./gradlew :kyc:clean
-          ./gradlew :public:shadowJar
+          ./gradlew :kyc:shadowJar
 
       - name: Set Tag
         id: tag
