@@ -18,14 +18,14 @@ java {
 
 repositories {
 	mavenCentral()
-	maven {
-		url = uri("https://maven.pkg.github.com/developernaolgithub/custom_apps_backend_utils")
-		credentials {
-			username = System.getenv("GPR_USER")
-			password = System.getenv("GPR_TOKEN")
-
-		}
-	}
+//	maven {
+//		url = uri("https://maven.pkg.github.com/developernaolgithub/custom_apps_backend_utils")
+//		credentials {
+//			username = System.getenv("GPR_USER")
+//			password = System.getenv("GPR_TOKEN")
+//
+//		}
+//	}
 }
 
 dependencies {
@@ -67,7 +67,7 @@ dependencies {
 	implementation("com.squareup.okhttp3:okhttp:4.10.0")
 	implementation("com.fasterxml.jackson.core:jackson-core:2.13.4")
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("com.homefirst:utilities:1.0.0")
+//	implementation("com.homefirst:utilities:1.0.0")
 	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
 }

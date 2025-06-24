@@ -11,9 +11,7 @@ import com.homefirst.kyc.model.KYCDocument
 import com.homefirst.kyc.model.VehicleRcInfo
 import com.homefirst.kyc.repository.DocumentRepositoryMaster
 import com.homefirst.kyc.repository.ExternalServiceLogRepository
-import com.homefirst.utilities.utils.*
-import homefirst.utilities.*
-import homefirst.utilities.utils.*
+import com.homefirst.kyc.utils.*
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
@@ -21,7 +19,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class KycService(
-    @Autowired val oneResponse: UtilsOneResponse,
+    @Autowired val oneResponse: OneResponse,
     @Autowired val externalServiceManager : ExternalServiceManager,
     @Autowired val externalServiceLogRepository : ExternalServiceLogRepository,
     @Autowired val partnerLogHelper: PartnerLogHelper,
@@ -29,7 +27,7 @@ class KycService(
     @Autowired val documentRepositoryMaster: DocumentRepositoryMaster,
     @Autowired val objectMapper: ObjectMapper,
     @Autowired val kycManager: KYCManager,
-    @Autowired val cryptoUtils: UtilsCryptoUtils
+    @Autowired val cryptoUtils: CryptoUtils
 
 ) {
 
@@ -137,7 +135,7 @@ class KycService(
         epLogger.setServiceName(object {}.javaClass.enclosingMethod.name)
             .setResponseStatus(200).setRequestStatus(UserActionStatus.SUCCESS).collectLog()
 
-        kycDocument.documentId = cryptoUtils.decryptAnyKey(kycDocument.documentId!!)
+        kycDocument.documentId = decryptAnyKey(kycDocument.documentId!!)
 
         return oneResponse.getSuccessResponse(
             JSONObject(objectMapper.writeValueAsString(kycDocument))
@@ -252,7 +250,7 @@ class KycService(
         epLogger.setServiceName(object {}.javaClass.enclosingMethod.name).setResponseStatus(200)
             .setRequestStatus(UserActionStatus.SUCCESS).collectLog()
 
-        kycDocument.documentId = cryptoUtils.decryptAnyKey(kycDocument.documentId!!)
+        kycDocument.documentId = decryptAnyKey(kycDocument.documentId!!)
 
         return oneResponse.getSuccessResponse(
             JSONObject(objectMapper.writeValueAsString(kycDocument))

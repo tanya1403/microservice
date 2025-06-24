@@ -1,7 +1,7 @@
 package com.homefirst.kyc.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.homefirst.utilities.utils.DateTimeUtils
+import com.homefirst.kyc.utils.DateTimeUtils
 import jakarta.persistence.*
 import org.hibernate.annotations.ColumnDefault
 import org.hibernate.annotations.GenericGenerator

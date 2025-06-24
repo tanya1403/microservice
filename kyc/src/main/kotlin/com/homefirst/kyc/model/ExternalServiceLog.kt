@@ -1,6 +1,6 @@
 package com.homefirst.kyc.model
 
-import com.homefirst.utilities.utils.DateTimeUtils
+import com.homefirst.kyc.utils.DateTimeUtils
 import jakarta.persistence.*
 import java.util.UUID
 

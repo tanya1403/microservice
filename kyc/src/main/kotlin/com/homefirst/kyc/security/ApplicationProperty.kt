@@ -31,25 +31,25 @@ enum class EnvProfile(
 @EnableAsync
 class AppProperty {
 
-    @Bean
-    @Throws(IOException::class)
-    fun firebaseInstance(): FirebaseApp {
-        val defaultApp = getApps().find { it.name == DEFAULT_APP_NAME }
-
-        return if (defaultApp != null) {
-            defaultApp
-        } else {
-            val googleCredentials = GoogleCredentials
-                .fromStream(ClassPathResource(firebaseConfig).inputStream)
-
-            val firebaseOptions = FirebaseOptions
-                .builder()
-                .setCredentials(googleCredentials)
-                .build()
-
-            initializeApp(firebaseOptions)
-        }
-    }
+//    @Bean
+//    @Throws(IOException::class)
+//    fun firebaseInstance(): FirebaseApp {
+//        val defaultApp = getApps().find { it.name == DEFAULT_APP_NAME }
+//
+//        return if (defaultApp != null) {
+//            defaultApp
+//        } else {
+//            val googleCredentials = GoogleCredentials
+//                .fromStream(ClassPathResource(firebaseConfig).inputStream)
+//
+//            val firebaseOptions = FirebaseOptions
+//                .builder()
+//                .setCredentials(googleCredentials)
+//                .build()
+//
+//            initializeApp(firebaseOptions)
+//        }
+//    }
 
 
 //    @Bean(name = [THREAD_POOL_TASK_EXECUTOR])
@@ -66,17 +66,17 @@ class AppProperty {
 //        return DelegatingSecurityContextAsyncTaskExecutor(executor)
 //    }
 
-    @Bean
-    fun passwordEncoder(): BCryptPasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
-
-    @Bean
-    fun authenticationManager(
-        authenticationConfiguration: AuthenticationConfiguration
-    ): AuthenticationManager? {
-        return authenticationConfiguration.authenticationManager
-    }
+//    @Bean
+//    fun passwordEncoder(): BCryptPasswordEncoder {
+//        return BCryptPasswordEncoder()
+//    }
+//
+//    @Bean
+//    fun authenticationManager(
+//        authenticationConfiguration: AuthenticationConfiguration
+//    ): AuthenticationManager? {
+//        return authenticationConfiguration.authenticationManager
+//    }
 
     @Autowired
     lateinit var environment: Environment

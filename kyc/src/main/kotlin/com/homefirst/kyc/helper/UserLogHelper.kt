@@ -3,8 +3,8 @@ package com.homefirst.kyc.helper
 import com.homefirst.kyc.dto.EPAuthRequest
 import com.homefirst.kyc.repository.PartnerMasterRepository
 import com.homefirst.kyc.model.PartnerLog
-import com.homefirst.utilities.utils.LoggerUtils
-import com.homefirst.utilities.utils.THREAD_POOL_TASK_EXECUTOR
+import com.homefirst.kyc.utils.LoggerUtils
+import com.homefirst.kyc.utils.THREAD_POOL_TASK_EXECUTOR
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.annotation.Async
 import org.springframework.scheduling.annotation.EnableAsync

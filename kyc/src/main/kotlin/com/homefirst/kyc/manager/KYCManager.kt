@@ -6,10 +6,8 @@ import com.homefirst.kyc.helper.ExternalServiceLogger
 import com.homefirst.kyc.model.KYCDocument
 import com.homefirst.kyc.model.VehicleRcInfo
 import com.homefirst.kyc.repository.DocumentRepositoryMaster
-import com.homefirst.kyc.utils.EnMyObject
-import com.homefirst.utilities.utils.*
-import com.homefirst.utilities.utils.LoggerUtils.log
-import homefirst.utilities.utils.*
+import com.homefirst.kyc.utils.*
+import com.homefirst.kyc.utils.LoggerUtils.log
 import org.json.JSONObject
 import org.springframework.beans.BeanUtils
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +18,7 @@ import org.springframework.stereotype.Component
 class KYCManager(
     @Autowired private val karzaClient: KarzaClient,
     @Autowired val externalServiceLogger: ExternalServiceLogger,
-    @Autowired private val cryptoUtils: UtilsCryptoUtils,
+    @Autowired private val cryptoUtils: CryptoUtils,
     @Autowired val documentRepositoryMaster: DocumentRepositoryMaster,
     ) {
 

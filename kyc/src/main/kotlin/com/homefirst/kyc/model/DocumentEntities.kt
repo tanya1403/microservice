@@ -1,8 +1,8 @@
 package com.homefirst.kyc.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.homefirst.utilities.utils.DateTimeUtils.getCurrentDateTimeInIST
-import com.homefirst.utilities.utils.MyObject
+import com.homefirst.kyc.utils.DateTimeUtils.getCurrentDateTimeInIST
+import com.homefirst.kyc.utils.MyObject
 import jakarta.persistence.*
 import org.hibernate.annotations.ColumnDefault
 import java.util.*

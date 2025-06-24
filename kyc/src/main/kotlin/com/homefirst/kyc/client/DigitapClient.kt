@@ -6,8 +6,11 @@ import com.homefirst.kyc.manager.EnCredType
 import com.homefirst.kyc.manager.EnPartnerName
 import com.homefirst.kyc.model.Creds
 import com.homefirst.kyc.netwokring.CommonNetworkingClient
-import com.homefirst.utilities.utils.*
-import homefirst.utilities.utils.*
+import com.homefirst.kyc.utils.CryptoUtils
+import com.homefirst.kyc.utils.LocalResponse
+import com.homefirst.kyc.utils.LoggerUtils
+import com.homefirst.kyc.utils.AUTHORIZATION
+import com.homefirst.kyc.utils.CONTENT_TYPE_APPLICATION_JSON
 import org.apache.commons.lang3.RandomStringUtils
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +19,7 @@ import java.util.*
 
 @Configuration
 class DigitapClient(
-    @Autowired val cryptoUtils: UtilsCryptoUtils,
+    @Autowired val cryptoUtils: CryptoUtils,
     @Autowired val credentialManager: CredsManager,
     @Autowired val commonNetworkingClient: CommonNetworkingClient,
 

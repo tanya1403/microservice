@@ -2,8 +2,7 @@ package com.homefirst.kyc.netwokring
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.homefirst.kyc.security.AppProperty
-import com.homefirst.kyc.utils.Errors
-import com.homefirst.utilities.utils.*
+import com.homefirst.kyc.utils.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request

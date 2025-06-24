@@ -1,6 +1,7 @@
 package com.homefirst.kyc.dto
 
-import com.homefirst.utilities.utils.*
+import com.homefirst.kyc.utils.*
+import com.homefirst.kyc.utils.NA
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*

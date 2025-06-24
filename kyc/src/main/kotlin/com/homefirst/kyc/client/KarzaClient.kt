@@ -6,9 +6,9 @@ import com.homefirst.kyc.manager.EnPartnerName
 import com.homefirst.kyc.model.Creds
 import com.homefirst.kyc.netwokring.CommonNetworkingClient
 import com.homefirst.kyc.security.AppProperty
-import com.homefirst.utilities.utils.LocalResponse
-import com.homefirst.utilities.utils.LoggerUtils
-import com.homefirst.utilities.utils.UtilsCryptoUtils
+import com.homefirst.kyc.utils.CryptoUtils
+import com.homefirst.kyc.utils.LocalResponse
+import com.homefirst.kyc.utils.LoggerUtils
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration
 class KarzaClient(
     @Autowired private val appProperty: AppProperty,
     @Autowired private val commonNetworkingClient: CommonNetworkingClient,
-    @Autowired private val cryptoUtils: UtilsCryptoUtils,
+    @Autowired private val cryptoUtils: CryptoUtils,
     @Autowired private val credsManager: CredsManager,
 
     ){

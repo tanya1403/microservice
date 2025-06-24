@@ -23,17 +23,17 @@ application {
 
 repositories {
 	mavenCentral()
-	maven {
-		url = uri("https://maven.pkg.github.com/developernaolgithub/custom_apps_backend_utils")
+//	maven {
+//		url = uri("https://maven.pkg.github.com/developernaolgithub/custom_apps_backend_utils")
+////		credentials {
+////			username = "tanya1403"
+////			password = "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"
+////		}
 //		credentials {
 //			username = "tanya1403"
-//			password = "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"
+//			password = "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"
 //		}
-		credentials {
-			username = "tanya1403"
-			password = "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"
-		}
-	}
+//	}
 }
 
 dependencies {
@@ -54,7 +54,7 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 
 	// External / Custom
-	implementation("com.homefirst:utilities:1.0.4")
+//	implementation("com.homefirst:utilities:1.0.4")
 	implementation("org.json:json:20230227")
 	runtimeOnly("com.mysql:mysql-connector-j")
 

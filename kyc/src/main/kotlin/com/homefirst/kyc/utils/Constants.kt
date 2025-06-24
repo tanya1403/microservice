@@ -2,7 +2,6 @@ package com.homefirst.kyc.utils
 
 import org.apache.http.entity.ContentType
 
-
 const val SYSTEM_USER_ID = "a88eba44-e0c2-49a4-b7d1-afc13a03e19d"
 const val DEFAULT_PARENT_ORG_ID = "homefirst"
 const val DEFAULT_PARTNER_ID = "homefirst"
@@ -13,7 +12,6 @@ const val REFERENCE_ID = "referenceId"
 
 const val SERVICE_INSTANT_TOP_UP = "INSTANT_TOP_UP"
 
-
 const val RETRY_THRESHOLD = 3
 const val RETRY_INCRETMENT_THRESHOLD = 2
 const val HITBERNATE_BATCH_SIZE = 25
@@ -21,13 +19,22 @@ const val HITBERNATE_BATCH_SIZE = 25
 const val E_MANDATE = "E-Mandate"
 const val SF_NONE = "--None--"
 
+const val SMS_VAR = "{#var#}"
 const val UTF_8 = "UTF-8"
 const val NA = "NA"
+const val OK = "OK"
 const val RESET = "RESET"
 const val NONE = "NONE"
 const val STATUS = "status"
+const val REGISTERED = "registered"
+const val CONSENT_URL = "consentUrl"
+const val STATUS_CODE_200 = "200"
+const val X_API_KEY = "x-Api-key"
+const val API_KEY = "api-key"
 const val SUCCESS = "success"
 const val FAILURE = "failure"
+const val FAILED = "Failed"
+const val DELIVRD = "DELIVRD"
 const val MESSAGE = "message"
 const val ADDITIONAL_MESSAGE = "additionalMessage"
 const val ERROR = "error"
@@ -43,6 +50,7 @@ const val ALLOWED_SERVICES = "allowedServices"
 const val SOURCE_PASSCODE = "sourcePasscode"
 const val REQUEST_TOKEN = "requestToken"
 const val AUTHORIZATION = "Authorization"
+const val CONTENT_TYPE = "Content-Type"
 const val AUTHORIZED = "AUTHORIZED"
 const val CLIENT_CODE = "clientCode"
 const val ORG_ID = "orgId"
@@ -61,9 +69,12 @@ const val SF_LEAD_ID = "sfLeadId"
 const val REQUEST_ID = "requestId"
 const val USER_ID = "userId"
 const val EMAIL_ID = "emailId"
+
 const val FILE_NAME = "fileName"
+
 const val FILE_DATA = "fileData"
 const val ID = "id"
+const val Name = "name"
 const val USER = "user"
 const val ROLES = "roles"
 const val TEAMS = "teams"
@@ -77,8 +88,8 @@ const val ACCOUNT_LOCKED = "accountLocked"
 const val CREDENTIALS_EXPIRED = "credentialsExpired"
 const val CALLER_ID = "caller_id"
 
-const val CLIENT_ID = "clientId"
-const val CLIENT_SECRET = "clientSecret"
+const val CLIENT_ID = "clientid"
+const val CLIENT_SECRET = "client_secret"
 
 
 const val FALLBACK_LOAN_AMOUNT = 11
@@ -109,6 +120,7 @@ const val LOAN_TYPE_CANCELED = "Canceled"
 const val LOAN_TYPE_CANCELLED = "Cancelled"
 
 const val CONTENT_TYPE_APPLICATION_JSON = "application/json"
+const val CONTENT_TYPE_FORM_URLENCODED = "application/x-www-form-urlencoded"
 
 const val USER_RABIT = "0059000000UuZ18AAF"
 const val USER_API = "00590000006VHPKAA4"
@@ -123,6 +135,7 @@ const val BRANCH_HO = "a039000000F06xbAAB"
 const val DATE_FILTER = "dateFilter"
 const val START_DATETIME = "startDatetime"
 const val END_DATETIME = "endDatetime"
+//const val OBJECT_NAME = "objectName"
 
 const val ROLE_ALL = "ALL"
 const val ALL = "ALL"
@@ -152,6 +165,8 @@ const val LEAD_EXPORT_VALUE = 100000
 const val NO_DECIMAL_NUMBER = -1.0
 const val NO_NUMBER = -1
 
+const val QUERY_ID_REQUEST_PARAM = "{query_id}"
+const val FILE_NAME_REQUEST_PARAM = "{filename}"
 
 const val MOBILE_NUMBER = "mobileNumber"
 
@@ -185,6 +200,8 @@ const val OLD_CONNECTOR_DECLINE_STAGE = "0-Declined"
 const val THREAD_POOL_TASK_EXECUTOR = "threadPoolTaskExecutor"
 const val NOTIFICATION = "Notification"
 
+const val PARTNER_HOMEFIRST_LMS = "HomefirstLMS"
+
 //====== Notification Constants ======/
 
 const val FIREBASE_PROJECT_NAME = "LMS22"
@@ -205,6 +222,19 @@ const val NO_ITR_AVAILABLE = "No ITR- Income is assessed"
 const val SMS_PLACE_HOLDER_VAR = "{#var#}"
 
 const val MAX_LIMIT_TO_BULK_UPDATE = 1
+
+const val LOAN_ACCOUNT_NUMBER = "loanAccountNumber"
+const val FULLY_DISBURSED = "Fully Disbursed"
+//const val IS_PRODUCTION = false
+
+const val SF_PROPERTY_INSIGHT_ID = "sfPropertyInsightId"
+
+const val FILE_NAMES = "fileNames"
+const val SOURCE_HFO_SPRING = "HFO_SPRING"
+const val SOURCE_WHATSAPP_BOT = "WHATSAPP_BOT"
+const val OBJECT_ID = "OBJECT_ID"
+const val OBJECT_NAME = "OBJECT_NAME"
+const val DAILY = "DAILY"
 
 enum class Actions(val value: String) {
     AUTHENTICATE_AGAIN("AUTHENTICATE_AGAIN"),
@@ -233,7 +263,7 @@ enum class Errors(val value: String) {
     OPERATION_FAILED("OPERATION_FAILED"),
     INVALID_DATA("INVALID_DATA"),
     INVALID_REQUEST("INVALID_REQUEST"),
-    INCONLUSIVE("INCONLUSIVE"),
+    INCONLUSIVE("INCONCLUSIVE"),
     SERVICE_NOT_FOUND("SERVICE_NOT_FOUND");
 }
 
@@ -257,7 +287,7 @@ enum class EnLeadState(val value: String) {
 }
 
 
-enum class EnLeadStage(val value:String) {
+enum class EnLeadStage(val value: String) {
     PROSPECT("Prospect"),
     CREDIT_REPORT_PULLED("Credit Report Pulled"),
     ASSIGNED_TO_BRANCH("Assigned to Branch"),
@@ -276,8 +306,53 @@ enum class EnLeadStage(val value:String) {
     }
 }
 
+enum class EnS3BucketPath(val stringValue: String) {
+    PROPERTY("HomefirstOne/Property/PropertyPhotograph"), //TODO: Need to decide this path
+    PROFILE("external/LMS/profile"),
+    AUDIO_RECORDING("HomefirstOne/Recording/Audio"),
+    KAISYS_EXPORT("HomefirstOne/LMS/Exports"),
+    MASK_IMAGES("HomefirstOne/Documents/Masked"),
+    PAN_IMAGES("HomefirstOne/Documents/PAN"),
+    AADHAAR_IMAGES("HomefirstOne/Documents/Aadhaar"),
+    VOTER_IMAGES("HomefirstOne/Documents/Voter"),
+    PASSPORT_IMAGES("HomefirstOne/Documents/Passport"),
+    DRIVING_LICENCE_IMAGES("HomefirstOne/Documents/DrivingLicence"),
+    TEMP_A_IMAGES("HomefirstOne/Documents/TempA"),
+    CIBIL_DOCS("HomefirstOne/Documents/BureauReport/CibilDocument"),
+    LAI_PATH("HomefirstOne/LAI_DOCUMENTS"),
+    BANK_ACCOUNT("HomefirstOne/Documents/BankAccount"),
+    IDV_DOCS("HomefirstOne/Documents/BureauReport/IdvDocument"),
+    ITR("HomefirstOne/Documents/ITR");
+
+}
+
+enum class EnDocumentType(val value: String, val s3BucketPath: EnS3BucketPath?, val isDoubleSideDocument: Boolean) {
+    AADHAAR("Aadhaar", EnS3BucketPath.AADHAAR_IMAGES, true),
+    PAN("PAN", EnS3BucketPath.PAN_IMAGES, false),
+    VOTER_ID("VoterId", EnS3BucketPath.VOTER_IMAGES, true),
+    PASSPORT("Passport", EnS3BucketPath.PASSPORT_IMAGES, true),
+    DRIVING_LICENCE("DrivingLicence", null, false),
+    MOBILE("MOBILE", null, false),
+    EMAIL("Email", null, false),
+    CIBIL_REPORT("CibilReport", null, false),
+    GSTIN("GSTIN", null, false),
+    BANK_ACCOUNT("BankAccount", null, false),
+    CHEQUE("cheque", null, false),
+    PASSBOOK("passbook", null, false),
+    PROPERTY_INSIGHT_DIGITAL("PropertyInsightDigital", null, false),
+    PROPERTY_INSIGHT_LEGAL("PropertyInsightLegal", null, false);
+
+    companion object {
+        operator fun get(value: String): EnDocumentType? {
+            return values().find { it.value == value }
+        }
+    }
+}
+
 enum class LeadDestination(val value: String) {
-    SALESFORCE("Salesforce"), LEAD_SQUARED("LeadSquared"), SF_N_LSQ("SF_N_LSQ");
+    SALESFORCE("Salesforce"),
+    LEAD_SQUARED("LeadSquared"),
+    SF_N_LSQ("SF_N_LSQ");
 
     companion object {
         @Throws(Exception::class)
@@ -295,35 +370,75 @@ enum class FileTypesExtentions(val ext: String, val contentType: String, val dis
     HTML(".html", "text/html", "HTML"),
     MP3(".mp3", "audio/mpeg", "MP3"),
     CSV(".csv", "text/csv", "CSV"),
-    IMAGE(".jpg", "image/jpeg", "Image");
+    JPEG(".jpeg", "image/jpeg", "Image"),
+    JPG(".jpg", "image/jpeg", "Image"),
+    PNG(".png", "image/png", "Image");
 
 
     companion object {
-        fun getExtFromType(ext: String): String? {
+
+        fun getFileTypeFromContentType(contentType: String): FileTypesExtentions? {
             for (item: FileTypesExtentions in values()) {
-                if ((item.contentType == ext)) return item.ext
+                if ((item.contentType == contentType)) return item
             }
             return null
         }
+
         fun imageFormats() = listOf(
             ContentType.IMAGE_JPEG.mimeType,
             ContentType.IMAGE_PNG.mimeType
         )
+
+        operator fun get(value: String): FileTypesExtentions? {
+            for (ext: FileTypesExtentions in FileTypesExtentions.values()) {
+                if ((ext.ext == value)) return ext
+            }
+            return null
+        }
     }
 }
 
-enum class EnMyObject(val value: String, val tag: String) {
-    KYC_DOCUMENT("KYCDocument","kyc"),
-    ITRV_DOCUMENT("ITRVDocument","itr"),
-    UTILITY_BILL("UtilityBill","bill"),
-    GSTIN("Gstin","gstin"),
-    VEHICLE_RC_INFO("VehicleRcInfo","vehicleRc"),
-    EPF_DETAIL("EpfDetail","epf");
+enum class MyObject(val value: String) {
+    DOCUMENT("Document"),
+    KYC_DOCUMENT("KYCDocument"),
+    BANK_ACCOUNT("BankAccount"),
+    E_SIGN_DOCUMENT("ESignDocument"),
+    LOAN("Loan"),
+    BUREAU_REPORT("BureauReport"),
+    BUREAU_REQUEST("BureauRequest"),
+    APPLICANT("Applicant"),
+    CONNECTOR("Connector"),
+    E_STAMP_REQUEST("EStampRequest"),
+    CSUB_PAYOUT("CSubPayout"),
+    SITE_PHOTO("SitePhotograph"),
+    LEAD("Lead"),
+    USER("User"),
+    ROLE("Role"),
+    SALESGROUP("SalesGroup"),
+    TEAM("Team"),
+    ORGANIZATION("Organization"),
+    PARTNER("Partner"),
+    LEAD_SOURCE("LeadSource"),
+    CAMPAIGN("Campaigns"),
+    CROSS_NOTIFICATION("CrossNotification"),
+    PROPERTY_INSIGHT("PropertyInsight"),
+    CALL_LOG("CallLog"),
+    TASK("Task"),
+    LEAD_EXPORT("LeadExport"),
+    SMS_TEMPLATE("SMSTemplate"),
+    USER_REQUEST("cas_UserRequest"),
+    SMS_LOG("SMSLog"),
+    CONTACT("Contact"),
+    NOTIFICATION_TOKEN("cas_NotificationToken"),
+    NOTIFICATION("cas_Notification"),
+    SF_LOAN_AMORT_REQUEST("SFLoanAmortRequest"),
+    PROPERTY("Property"),
+    MOBILE_NUMBER_LOOKUP("MobileNumberLookup");
 
     companion object {
         @Throws(Exception::class)
-        operator fun get(value: String): EnMyObject {
-            for (mo: EnMyObject in values()) {
+        operator fun get(value: String): MyObject {
+            for (mo: MyObject in values()) {
                 if ((mo.value == value)) return mo
             }
             throw Exception("No Object mapped for value: $value")
@@ -348,7 +463,11 @@ enum class AttachmentType(val value: String) {
     PASSBOOK("Passbook"),
     PROPERTY_INSIGHT("PropertyInsight"),
     AUDIO("Audio"),
-    LMS_LEAD_EXPORT("LMSLeadExport");//todo:LMS_Lead_export
+    LMS_LEAD_EXPORT("LMSLeadExport"),
+    PROPERTY_INSIGHT_DOCUMENT("PropertyInsightDocument"),
+    VOTER_ID("VoterId"),
+    PASSPORT("Passport"),
+    DRIVING_LICENCE("DrivingLicence")
 }
 
 enum class EmailType(val value: String) {
@@ -420,7 +539,7 @@ enum class EnLoanApplicationStatus(val value: String) {
             //TODO: This fix is done because existing lead status was open and we look for Open
             val modStatus = status.let {
                 if (it == "open") {
-                        EnLeadStatus.OPEN.value
+                    EnLeadStatus.OPEN.value
                 } else
                     it
             }
@@ -477,8 +596,9 @@ enum class EnApplicantType(val value: String) {
     PRIMARY_APPLICANT("Primary"),
     CO_APPLICANT("Co-Applicant"),
     GUARANTOR("Guarantor");
+
     companion object {
-        fun get(value : String): EnApplicantType? = values().find { it.value == value }
+        fun get(value: String): EnApplicantType? = values().find { it.value == value }
     }
 }
 
@@ -527,7 +647,7 @@ enum class EnLeadScoreField(val value: String) {
 
 
     companion object {
-        fun get(value : String): EnLeadScoreField? = values().find { it.value == value }
+        fun get(value: String): EnLeadScoreField? = values().find { it.value == value }
     }
 }
 
@@ -538,7 +658,7 @@ enum class EnProfessionType(val value: String) {
     SELF_EMPLOYED("Self Employed");
 
     companion object {
-        fun getFrom(value: String) :EnProfessionType? = values().find {it.value == value}
+        fun getFrom(value: String): EnProfessionType? = values().find { it.value == value }
     }
 }
 
@@ -620,7 +740,7 @@ enum class EnLeadStatus(val value: String, val displayName: String, val generalS
     );
 
     companion object {
-        val filterStatus = arrayListOf (QUALIFIED.value, CLOSED.value)
+        val filterStatus = arrayListOf(QUALIFIED.value, CLOSED.value)
 
         operator fun get(value: String?): EnLeadStatus? {
             return values().first { it.value == value }
@@ -629,44 +749,44 @@ enum class EnLeadStatus(val value: String, val displayName: String, val generalS
 }
 
 enum class EnSubStatus(val value: String, val displayName: String, val status: String) {
-//    BLANK("--blank--","Blank","Open"),
-    NC("NC","NC","Open"),
-    RNR("RNR","RNR","Open"),
-    SWO("SWO","SWO","Open"),
+    //    BLANK("--blank--","Blank","Open"),
+    NC("NC", "NC", "Open"),
+    RNR("RNR", "RNR", "Open"),
+    SWO("SWO", "SWO", "Open"),
 
-//    CONTACTED_BLANK("--blank--","","Contacted"),
-    CB("CB","CB","Contacted"),
-    IH("IH","IH","Contacted"),
-    IL("IL","IL","Contacted"),
-    PROPERTY_UNIDENTIFIED("PROPERTY_UNIDENTIFIED","Property Unidentified","Contacted"),
+    //    CONTACTED_BLANK("--blank--","","Contacted"),
+    CB("CB", "CB", "Contacted"),
+    IH("IH", "IH", "Contacted"),
+    IL("IL", "IL", "Contacted"),
+    PROPERTY_UNIDENTIFIED("PROPERTY_UNIDENTIFIED", "Property Unidentified", "Contacted"),
     CUSTOMER_TO_VISIT("CUSTOMER_TO_VISIT", "Customer to visit branch within 10 days", "Contacted"),
-    CIBIL_REQUEST("CIBIL_REQUEST","Cibil request(post All Kyc received)", "Contacted"),
-    KYC_PENDING("KYC_PENDING", "KYC pending","Contacted"),
+    CIBIL_REQUEST("CIBIL_REQUEST", "Cibil request(post All Kyc received)", "Contacted"),
+    KYC_PENDING("KYC_PENDING", "KYC pending", "Contacted"),
 
-//    CLOSED_BLANK("--blank--","","Closed Lead"),
-    DSA_CONNECTOR("DSA_CONNECTOR","DSA/Connector","Closed Lead"),
-    DUPLICATE("DUPLICATE","Duplicate Lead","Closed Lead"),
-    HIGH_TICKET_SIZE("HIGH_TICKET_SIZE","High Ticket Size","Closed Lead"),
-    LOW_TICKET_SIZE("LOW_TICKET_SIZE","Low Ticket Size","Closed Lead"),
-    NI("NI","NI","Closed Lead"),
-    NI_COMPETITOR("NI_COMPETITOR","NI - Competitor","Closed Lead"),
-    NI_ROI("NI_ROI","NI - ROI","Closed Lead"),
-    OSL("OSL","Out of Service Location","Closed Lead"),
-    PL("PL","Personal Loan","Closed Lead"),
-    CLOSED_RNR("CLOSED_RNR","RNR","Closed Lead"),
-    SPAM("SPAM","Spam Lead","Closed Lead"),
-    CLOSED_SWO("CLOSED_SWO","SWO","Closed Lead"),
-    WN("WN","WN","Closed Lead"),
-    NE_PROPERTY("NE_PROPERTY","NE - Property","Closed Lead"),
-    NE_PROFILE("NE_PROFILE","NE - Profile","Closed Lead"),
-    NE_CREDIT("NE_CREDIT","NE - Credit Default","Closed Lead");
+    //    CLOSED_BLANK("--blank--","","Closed Lead"),
+    DSA_CONNECTOR("DSA_CONNECTOR", "DSA/Connector", "Closed Lead"),
+    DUPLICATE("DUPLICATE", "Duplicate Lead", "Closed Lead"),
+    HIGH_TICKET_SIZE("HIGH_TICKET_SIZE", "High Ticket Size", "Closed Lead"),
+    LOW_TICKET_SIZE("LOW_TICKET_SIZE", "Low Ticket Size", "Closed Lead"),
+    NI("NI", "NI", "Closed Lead"),
+    NI_COMPETITOR("NI_COMPETITOR", "NI - Competitor", "Closed Lead"),
+    NI_ROI("NI_ROI", "NI - ROI", "Closed Lead"),
+    OSL("OSL", "Out of Service Location", "Closed Lead"),
+    PL("PL", "Personal Loan", "Closed Lead"),
+    CLOSED_RNR("CLOSED_RNR", "RNR", "Closed Lead"),
+    SPAM("SPAM", "Spam Lead", "Closed Lead"),
+    CLOSED_SWO("CLOSED_SWO", "SWO", "Closed Lead"),
+    WN("WN", "WN", "Closed Lead"),
+    NE_PROPERTY("NE_PROPERTY", "NE - Property", "Closed Lead"),
+    NE_PROFILE("NE_PROFILE", "NE - Profile", "Closed Lead"),
+    NE_CREDIT("NE_CREDIT", "NE - Credit Default", "Closed Lead");
 
     companion object {
-         fun getAll(value: String?): Array<String> {
+        fun getAll(value: String?): Array<String> {
             val result: MutableList<String> = ArrayList()
 
-            for(eachSub in values()) {
-                if(eachSub.status == value) {
+            for (eachSub in values()) {
+                if (eachSub.status == value) {
                     result.add(eachSub.displayName)
                 }
             }
@@ -677,7 +797,7 @@ enum class EnSubStatus(val value: String, val displayName: String, val status: S
 
 }
 
-enum class EnLoanType(val value:String) {
+enum class EnLoanType(val value: String) {
 
     NONE("None"),
     HOME_LOAN("Home Loan"),
@@ -720,7 +840,7 @@ enum class EnLoanType(val value:String) {
 
 }
 
-enum class PropertyType(val value:String) {
+enum class PropertyType(val value: String) {
 
     LAP("Loan Against Property(LAP)"),
     PLOT_SECO("Plot + SeCo"),
@@ -747,11 +867,6 @@ enum class PropertyType(val value:String) {
 
 
 }
-
-
-
-
-
 
 
 enum class ContactStatus(val value: String) {
@@ -845,7 +960,7 @@ enum class EnRole(val value: String) {
 
     companion object {
 
-        val superRoles = arrayListOf (SUPER_ADMIN, ADMIN, MANAGEMENT)
+        val superRoles = arrayListOf(SUPER_ADMIN, ADMIN, MANAGEMENT)
 
         fun isTeamRequired(role: String): Boolean = !superRoles.contains(valueOf(role))
     }
@@ -874,16 +989,16 @@ enum class EnSalesGroup(
     DIGI_SURESH("DIGI_SURESH", "Suresh Team")
 }
 
-enum class EnUserType(val value : String) {
+enum class EnUserType(val value: String) {
     INTERNAL("INTERNAL"),
     EXTERNAL("EXTERNAL"),
     CALL_CENTER("CALL_CENTER")
 }
 
 enum class CallStatus(val value: String) {
-    CREATED("created"),
-    INITIATED("initiated"),
-    SUCCESS("success");
+    CREATED("CREATED"),
+    INITIATED("INITIATED"),
+    SUCCESS("SUCCESS");
 }
 
 enum class SMSStatus(val value: String) {
@@ -892,7 +1007,12 @@ enum class SMSStatus(val value: String) {
     SUCCESS("success");
 }
 
-enum class AdvancedFilterOperator(val value: String?){
+enum class SMSType(val value: String) {
+    TXN("TXN"),
+    MKT("MKT")
+}
+
+enum class AdvancedFilterOperator(val value: String?) {
     EQUALS("equals"),
     NOT_EQ("not_equals"),
     GREATER_THAN("greater_than"),
@@ -908,7 +1028,7 @@ enum class AdvancedFilterOperator(val value: String?){
     NOT_NULL("not_null");
 
     companion object {
-        operator fun get(value:String): AdvancedFilterOperator {
+        operator fun get(value: String): AdvancedFilterOperator {
             return AdvancedFilterOperator.values().first {
                 it.value == value
             }
@@ -916,14 +1036,14 @@ enum class AdvancedFilterOperator(val value: String?){
     }
 }
 
-enum class AdvancedFilterType(val value:String) {
+enum class AdvancedFilterType(val value: String) {
     LEAD("Lead"),
     ADDRESS("Address"),
     CONTACT("Contact"),
     USER("User");
 
     companion object {
-        operator fun get(value:String): AdvancedFilterType {
+        operator fun get(value: String): AdvancedFilterType {
             return AdvancedFilterType.values().first {
                 it.value == value
             }
@@ -932,7 +1052,7 @@ enum class AdvancedFilterType(val value:String) {
 }
 
 
-enum class EnBureauDocMapper(val value: String?){
+enum class EnBureauDocMapper(val value: String?) {
     CIBIL("CibilDocument"),
     IDV("IdvDocument");
 
@@ -957,9 +1077,9 @@ enum class EnApplicantRelations(val value: String?) {
     OTHER("Other");
 
     companion object {
-         val applicantRelations = arrayListOf (FATHER, MOTHER, BROTHER,SISTER,SPOUSE,SON,DAUGHTER,PARTNER)
+        val applicantRelations = arrayListOf(FATHER, MOTHER, BROTHER, SISTER, SPOUSE, SON, DAUGHTER, PARTNER)
 
-        fun get(value : String): EnApplicantRelations? = EnApplicantRelations.values().find { it.value == value }
+        fun get(value: String): EnApplicantRelations? = EnApplicantRelations.values().find { it.value == value }
 
     }
 }
@@ -989,7 +1109,6 @@ enum class EnCallStatus(val value: String) {
 enum class EnUserRequestStatus(val value: String) {
     CREATED("CREATED"),
     FAILED("FAILED"),
-    INITIATED("INITIATED"),
     PARTIALLY_COMPLETED("PARTIALLY_COMPLETED"),
     SUCCESS("SUCCESS");
 }
@@ -1004,7 +1123,7 @@ enum class EnLeadExportType(val value: String) {
     ADVANCED_FILTER("ADVANCED_FILTER")
 }
 
-enum class NotificationType(val value:String) {
+enum class NotificationType(val value: String) {
     INBOUND_CALL("INBOUND_CALL"),
     LEAD_CONVERT("LEAD_CONVERT"),
     BUREAU("BUREAU"),
@@ -1014,6 +1133,7 @@ enum class NotificationType(val value:String) {
 enum class EnSalaryType(val value: String, val displayName: String) {
     BANK("Bank", "Yes (Direct/Cheque)"),
     CASH("Cash", "No");
+
     companion object {
         operator fun get(value: String): EnSalaryType {
             return EnSalaryType.values().first { it.value == value }
@@ -1021,19 +1141,30 @@ enum class EnSalaryType(val value: String, val displayName: String) {
     }
 }
 
-enum class EnLeadSource(val value:String) {
+enum class EnLeadSource(val value: String) {
     INBOUND_PHONE_CALL("Inbound Phone call"),
     TOLL_FREE_INCOMING("Toll Free Incoming");
 }
 
-enum class EnSMSType(val value:String) {
+enum class EnSMSType(val value: String) {
     SELF_ONBOARDING("SELF_ONBOARDING")
+}
+
+enum class MessageType(val value: String) {
+    SMS("SMS"),
+    WHATSAPP("WHATSAPP"),
+}
+
+enum class ObjectType(val value: String) {
+    SOURCE("SOURCE"),
+    CAMPAIGN("CAMPAIGN"),
 }
 
 enum class EnGenderBureau(val value: String, val displayName: String) {
     MALE("Male", "M"),
     FEMALE("Female", "F"),
     OTHER("Other", "M");
+
     companion object {
         operator fun get(value: String): EnGenderBureau {
             return EnGenderBureau.values().first { it.value == value }
@@ -1051,15 +1182,286 @@ enum class EnLoanAccountType(val value: String) {
     INSTANT_TOPUP_LOAN("INSTANT_TOPUP_LOAN")
 }
 
+enum class EnTransactionStatus(val value: String) {
+    PENDING("PENDING"),
+    SUCCESS("SUCCESS"),
+    FAILURE("FAILURE")
+}
 
-enum class EnTransactionStatus {
-    SUCCESS, FAILURE
+enum class EnDeliveryStatus(val value: String) {
+    PENDING("PENDING")
+}
+
+enum class DeliveryStatus(val value: String) {
+    PENDING("PENDING"),
+    SUCCESS("SUCCESS"),
+    FAILED("FAILED")
+}
+
+enum class EnPropertyInsightStatus(val value: String) {
+    INITIATED("INITIATED"),
+    REQUESTED("REQUESTED"),
+    PDF_REPORT_PULLED("PDF_REPORT_PULLED"),
+    JSON_REPORT_PULLED("JSON_REPORT_PULLED"),
+    COMPLETED("COMPLETED");
+
+    companion object {
+        operator fun get(value: String): EnPropertyInsightStatus? {
+            for (pis in values()) {
+                if (pis.value == value) return pis
+            }
+            return null
+        }
+
+        fun getPIPresentStatus(): ArrayList<String> {
+            return ArrayList<String>().apply {
+                this.add(REQUESTED.value)
+                this.add(PDF_REPORT_PULLED.value)
+                this.add(JSON_REPORT_PULLED.value)
+                this.add(COMPLETED.value)
+            }
+        }
+
+    }
+
+}
+
+enum class EnPICallbackCode(val value: String) {
+    S001("S001"),
+    S002("S002"),
+    S003("S003"),
+    P001("P001"),
+    P002("P002"),
+    E001("E001"),
+    E002("E002"),
+    E003("E003");
+
+    companion object {
+        operator fun get(value: String): EnPICallbackCode? {
+            for (piCode in values()) {
+                if (piCode.value == value) return piCode
+            }
+            return null
+        }
+
+        fun getSuccessCode(): ArrayList<String> {
+            return ArrayList<String>().apply {
+                this.add(S001.value)
+                this.add(S002.value)
+                this.add(S003.value)
+            }
+        }
+
+        fun getNonProcessingCode(): ArrayList<String> {
+            return ArrayList<String>().apply {
+                this.add(E001.value)
+                this.add(E002.value)
+                this.add(E003.value)
+            }
+        }
+
+    }
+
+}
+
+enum class EnPIReportType(val value: String) {
+    DIGITAL_SEARCH_REPORT("Digital Property Search Report"),
+    LEGAL_REPORT("Legal Due Diligence Report")
+}
+
+class ServiceRequestType(
+    var requestType: String = NA,
+    var categories: Array<String>
+)
+
+fun getServiceRequestTypeData(): ArrayList<ServiceRequestType> {
+
+    val requestTypes: ArrayList<ServiceRequestType> = ArrayList()
+
+    requestTypes.add(
+        ServiceRequestType(
+            "Select", arrayOf("Select")
+        )
+    )
+
+    requestTypes.add(
+        ServiceRequestType(
+            "Disbursal Related Queries", arrayOf(
+                "Disbursal Demand"
+            )
+        )
+    )
+
+    requestTypes.add(
+        ServiceRequestType(
+            "Documents Request", arrayOf(
+                "Account Statement",
+                "Interest Certificate",
+                "Provisional Certificate",
+                "Closure Letter",
+                "Outstanding Letter",
+                "List of Documents",
+                "SOA+POS",
+                "Receipt"
+            )
+        )
+    )
+
+    requestTypes.add(
+        ServiceRequestType(
+            "Top Up Loan", arrayOf(
+                "Home Improvement / Furnishing",
+                "Buy Out of Existing Debts",
+                "Investment in Business",
+                "Family Function",
+                "Medical Purpose",
+                "Land / Property Purchase",
+                "Car Purchase",
+                "Two Wheeler Purchase",
+                "Education Purpose",
+                "Others"
+
+
+            )
+        )
+    )
+
+    return requestTypes
+}
+
+enum class SalesforceObjectType(val value: String, val displayName: String) {
+    COLLECTION("Collection__c", "Collection")
+}
+
+enum class CallSource(val value: String) {
+    LMS("LMS"),
+    SALESFORCE("SALESFORCE"),
+    CMS("CMS"),
+    RM_PRO("RM_PRO");
+
+
+    companion object {
+        fun get(value: String?): CallSource? {
+            return values().find { it.value == value }
+        }
+    }
+}
+
+enum class EnOptInStatus(val value: String) {
+    OPT_IN("OPT_IN")
+}
+
+enum class EnWhatsAppNumberStatus(val key: String){
+    SUCCESS("SUCCESS"),
+    UNKNOWN_SUBSCRIBER("UNKNOWN_SUBSCRIBER");
+
+    companion object {
+        fun get(key: String?): EnWhatsAppNumberStatus? {
+            return EnWhatsAppNumberStatus.values().find { it.key == key }
+        }
+    }
+}
+
+enum class EnumStatus(val value: String) {
+    CREATED("CREATED"),
+    INITIATED("INITIATED"),
+    SUCCESS("SUCCESS"),
+    PENDING("PENDING");
+
+    companion object {
+        fun get(value: String?): EnumStatus? {
+            return values().find { it.value == value }
+        }
+    }
+}
+
+enum class EnumOTPRequestStatus(val value: String) {
+    CREATED("CREATED"),
+    OTP_SENT("OTP_SENT"),
+    OTP_NOT_SENT("OTP_NOT_SENT"),
+    OTP_VERIFIED("OTP_VERIFIED"),
+    OTP_NOT_VERIFIED("OTP_NOT_VERIFIED");
+
+    companion object {
+        fun get(value: String?): EnumOTPRequestStatus? {
+            return values().find { it.value == value }
+        }
+    }
+
+}
+
+enum class EnExternalServiceType(val value: String) {
+    OCR("OCR"),
+    AUTHENTICATE("Authenticate"),
+    VALIDATE("Validate");
+}
+
+enum class EnExternalServiceName(val value: String) {
+    DIGITAP("DIGITAP"),
+    MSG91("MSG91")
+}
+
+enum class EnMobileValidationType(val value: String, val purpose: String) {
+    INITIATE_REQUEST("INITIATE_REQUEST", "initiate_request"),
+    SUBMIT_OTP("SUBMIT_OTP", "submit_otp"),
+    GET_STATUS("GET_STATUS", "get_status");
+
+    companion object {
+        fun get(value: String): EnMobileValidationType? {
+            return values().find { it.value == value }
+        }
+    }
+}
+
+enum class EnPaymentType(val nature:String, val subtypes: ArrayList<String>){
+    EMI("EMI", arrayListOf("Equated Monthly Installment")),
+    PARTIAL_PRE_PAYMENT("Partial Pre-Payment", arrayListOf("EMI Reduction", "Tenor Reduction"));
+
+    companion object {
+        fun get(nature: String?): EnPaymentType? {
+            return EnPaymentType.values().find { it.nature == nature }
+        }
+    }
+
+}
+
+enum class EnLinkType(val value: String) {
+    STANDARD("standard"),
+    UPI("upi");
+
+    companion object {
+        operator fun get(value: String): EnLinkType? {
+            for (item in values()) {
+                if (item.value == value) return item
+            }
+            return null
+        }
+    }
+}
+
+enum class EnKaleyraCallStatus(val value: String) {
+    ANSWER("ANSWER"),
+    NOANSWER("NOANSWER"),
+    BUSY("BUSY"),
+    CONGESTION("CONGESTION"),
+    CANCEL("CANCEL"),
+    FAILED("FAILED");
+
+    companion object {
+        operator fun get(value: String): EnKaleyraCallStatus? {
+            for (item in values()) {
+                if (item.value == value) return item
+            }
+            return null
+        }
+    }
+
 }
 
 enum class EnKycOcrType(val value: String) {
-    AADHAAR_BACK("Aadhaar Back"),
-    AADHAAR_FRONT_BOTTOM("Aadhaar Front Bottom"),
-    AADHAAR_FRONT_TOP("Aadhaar Front Top"),
+    AADHAAR_BACK("aadhaar_back"),
+    AADHAAR_FRONT_BOTTOM("aadhaar_front_bottom"),
+    AADHAAR_FRONT_TOP("aadhaar_front_top"),
     PAN("Pan"),
     VOTERID_BACK("Voterid Back"),
     VOTERID_FRONT_NEW("Voterid Front New"),
@@ -1075,43 +1477,35 @@ enum class EnKycOcrType(val value: String) {
     }
 }
 
-enum class EnExternalServiceType(val value: String) {
-    OCR("OCR"),
-    AUTHENTICATE("Authenticate"),
-    OTP("OTP"),
-    UAN("UAN"),
-    VALIDATE("Validate");
-
+enum class EnDigiRequestStatus(val value: String) {
+    INITIATED("INITIATED"),
+    IN_PROGRESS("IN-PROGRESS"),
+    COMPLETED("COMPLETED"),
+    FAILURE("FAILURE");
 }
 
-enum class EnDocumentTag(val value: String) {
-    KYC("kyc")
-}
-enum class EnBillIdType(val value: String) {
-    LPG_ID("lpg_id"),
-    TEL_NO("tel_no"),
-    CONSUMER_ID("consumer_id"),
-    MOBILE("mobile");
+enum class EnDigiDocType(val value: String) {
+    PANCR("PANCR"),
+    ADHAR("ADHAR"),
+    DRVLC("DRVLC"),
+    DIGI_PROFILE("DIGI_PROFILE")
 }
 
-enum class EnEpfStatusCode(val statusCode: String, val responseMsg: String) {
-    INVALID_ID("102","Invalid ID number or combination of inputs"),
-    NO_RECORDS("103","No records found for the given ID or combination of inputs"),
-    MAX_RETRIES("104","Max retries exceeded"),
-    MULTIPLE_RECORDS("106","Multiple Records Exist");
+enum class EnMyObject(val value: String, val tag: String) {
+    KYC_DOCUMENT("KYCDocument","kyc"),
+    ITRV_DOCUMENT("ITRVDocument","itr"),
+    UTILITY_BILL("UtilityBill","bill"),
+    GSTIN("Gstin","gstin"),
+    VEHICLE_RC_INFO("VehicleRcInfo","vehicleRc"),
+    EPF_DETAIL("EpfDetail","epf");
+
     companion object {
-        operator fun get(value: String?): EnEpfStatusCode? {
-            for (code: EnEpfStatusCode in values()) {
-                if ((code.statusCode == value)) return code
+        @Throws(Exception::class)
+        operator fun get(value: String): EnMyObject {
+            for (mo: EnMyObject in values()) {
+                if ((mo.value == value)) return mo
             }
-            return null
+            throw Exception("No Object mapped for value: $value")
         }
     }
 }
-
-enum class EnExternalServiceName(val value: String) {
-    DIGITAP("DIGITAP"),
-    MSG91("MSG91")
-}
-
-
