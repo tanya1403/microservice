@@ -30,7 +30,7 @@ jobs:
       - name: Build KYC Service
         run: |
           ./gradlew :kyc:clean
-          ./gradlew :kyc:shadowJar
+          ./gradlew :kyc:bootJar
 
       - name: Set Tag
         id: tag
