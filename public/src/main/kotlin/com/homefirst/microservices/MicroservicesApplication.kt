@@ -24,7 +24,7 @@ class MicroservicesApplication
 fun main() {
 	springContext = runApplication<MicroservicesApplication>()
 
-	embeddedServer(Netty, port = 8080, module = Application::PublicModule).start(wait = true)
+	embeddedServer(Netty, port = 8081, module = Application::PublicModule).start(wait = true)
 }
 
 fun Application.PublicModule() {

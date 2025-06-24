@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY build/libs/public-0.0.1-SNAPSHOT-all.jar app.jar
 
-EXPOSE 8080
+EXPOSE 8081
 
 CMD ["java", "-jar", "app.jar"]

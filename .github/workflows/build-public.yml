@@ -30,7 +30,7 @@ jobs:
       - name: Build Public Service
         run: |
           ./gradlew :public:clean
-          ./gradlew :public:shadowJar
+          ./gradlew :public:bootJar
 
       - name: Set Tag
         id: tag
@@ -67,4 +67,4 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/public-service:${{ needs.build.outputs.tag }}
             docker stop public || true && docker rm public || true
-            docker run -d --name public -p 8445:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/public-service:${{ needs.build.outputs.tag }}
+            docker run -d --name public -p 8445:8081 ${{ secrets.DOCKER_HUB_USERNAME }}/public-service:${{ needs.build.outputs.tag }}
