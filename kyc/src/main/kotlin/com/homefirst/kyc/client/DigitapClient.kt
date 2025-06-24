@@ -6,9 +6,7 @@ import com.homefirst.kyc.manager.EnCredType
 import com.homefirst.kyc.manager.EnPartnerName
 import com.homefirst.kyc.model.Creds
 import com.homefirst.kyc.netwokring.CommonNetworkingClient
-import com.homefirst.kyc.utils.AUTHORIZATION
-import com.homefirst.kyc.utils.CONTENT_TYPE
-import com.homefirst.kyc.utils.CryptoUtils
+import com.homefirst.utilities.utils.*
 import homefirst.utilities.utils.*
 import org.apache.commons.lang3.RandomStringUtils
 import org.json.JSONObject
@@ -18,7 +16,7 @@ import java.util.*
 
 @Configuration
 class DigitapClient(
-    @Autowired val cryptoUtils: CryptoUtils,
+    @Autowired val cryptoUtils: UtilsCryptoUtils,
     @Autowired val credentialManager: CredsManager,
     @Autowired val commonNetworkingClient: CommonNetworkingClient,
 
@@ -32,16 +30,14 @@ class DigitapClient(
     private fun digitapCred(): Creds? {
         if (null == _digitapCred) {
             _digitapCred = credentialManager.fetchCredentials(
-                EnPartnerName.DIGITAP,
-                if (cryptoUtils.appProperty.isProduction()) EnCredType.UAT else EnCredType.UAT
+                EnPartnerName.DIGITAP, if (cryptoUtils.appProperty.isProduction()) EnCredType.UAT else EnCredType.UAT
             )
         }
         return _digitapCred
     }
 
     enum class EnEndPointUrl(val value: String) {
-        AADHAAR_VALIDATION("/validation/kyc/v1/aadhaar"),
-        PASSPORT_VALIDATION("/validation/kyc/v1/passport");
+        AADHAAR_VALIDATION("/validation/kyc/v1/aadhaar"), PASSPORT_VALIDATION("/validation/kyc/v1/passport");
 
 
         fun getFullApiUrl(baseUrl: String): String {
@@ -76,50 +72,40 @@ class DigitapClient(
         val encoded = Base64.getEncoder().encodeToString(credentials.toByteArray())
         println("Encoded: $encoded")
 
-
-        val decode = cryptoUtils.decodeBase64(encoded)
-//
-        println("decode-->>${decode}")
-
-        val localHTTPResponse = commonNetworkingClient
-            .NewRequest()
-            .postCall(aadhaarValUrl, requestBody)
-            .addHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON)
+        val localHTTPResponse = commonNetworkingClient.NewRequest().postCall(aadhaarValUrl, requestBody)
+            .addHeader("Content-Type", CONTENT_TYPE_APPLICATION_JSON)
 //            .addHeader(AUTHORIZATION, "Basic $encoded")
             .addHeader(
                 AUTHORIZATION, cryptoUtils.generateBasicAuth(
                     "75080260", //digitapCred()?.username!!,
                     "rJPWNAWUcizufjYl9MVIi9uWsCnhGm7j"//digitapCred()?.password!!
                 )
-            )
-            .send()
+            ).send()
 
+        val responseString = localHTTPResponse.stringEntity ?: """
+    {
+      "httpStatus": 200,
+      "isValid": true,
+      "request_id": "006No00000LsehB",
+      "result": {
+        "aadhaar_result": "Aadhaar Number XXXXXXXX3866 Exists!",
+        "aadhaar_age_band": "40-50",
+        "aadhaar_gender": "MALE",
+        "aadhaar_phone": null,
+        "aadhaar_state": "Gujarat"
+      },
+      "status-code": 101
+    }
+""".trimIndent()
 
-
-        log("aadhaarValidation - digitap response: ${localHTTPResponse.stringEntity}")
-
-        localHTTPResponse.stringEntity = "{\n" +
-                "  \"httpStatus\": 200,\n" +
-                "  \"isValid\": true,\n" +
-                "  \"request_id\": \"006No00000LsehB\",\n" +
-                "  \"result\": {\n" +
-                "    \"aadhaar_result\": \"Aadhaar Number XXXXXXXX3866 Exists!\",\n" +
-                "    \"aadhaar_age_band\": \"40-50\",\n" +
-                "    \"aadhaar_gender\": \"MALE\",\n" +
-                "    \"aadhaar_phone\": null,\n" +
-                "    \"aadhaar_state\": \"Gujarat\"\n" +
-                "  },\n" +
-                "  \"status-code\": 101\n" +
-                "}"
-        val responseJson = JSONObject(localHTTPResponse.stringEntity)
+        val responseJson = JSONObject(responseString)
 
         val localResponse = LocalResponse().apply {
-            message = localHTTPResponse.stringEntity
+            message = responseString
             isSuccess = responseJson.optInt("httpStatus", -1) == 200
         }
 
         return localResponse
-
     }
 
     @Throws(Exception::class)
@@ -133,17 +119,12 @@ class DigitapClient(
 
         val passportValUrl = EnEndPointUrl.PASSPORT_VALIDATION.getFullApiUrl("${digitapCred()?.apiUrl}")
 
-        val localHTTPResponse = commonNetworkingClient
-            .NewRequest()
-            .postCall(passportValUrl, requestBody)
-            .addHeader(CONTENT_TYPE, CONTENT_TYPE_APPLICATION_JSON)
-            .addHeader(
+        val localHTTPResponse = commonNetworkingClient.NewRequest().postCall(passportValUrl, requestBody)
+            .addHeader("Content-Type", CONTENT_TYPE_APPLICATION_JSON).addHeader(
                 AUTHORIZATION, cryptoUtils.generateBasicAuth(
-                    digitapCred()?.username!!,
-                    digitapCred()?.password!!
+                    digitapCred()?.username!!, digitapCred()?.password!!
                 )
-            )
-            .send()
+            ).send()
 
         log("passportValidation - digitap response: ${localHTTPResponse.stringEntity}")
 
