@@ -110,5 +110,7 @@ tasks.withType<ShadowJar> {
 
 
 tasks.named<ShadowJar>("shadowJar") {
-	from(sourceSets.main.get().resources)
+	from(sourceSets.main.get().resources.srcDirs) {
+		into("BOOT-INF/classes")
+	}
 }
