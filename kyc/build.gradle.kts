@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
@@ -23,17 +25,6 @@ application {
 
 repositories {
 	mavenCentral()
-//	maven {
-//		url = uri("https://maven.pkg.github.com/developernaolgithub/custom_apps_backend_utils")
-////		credentials {
-////			username = "tanya1403"
-////			password = "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"
-////		}
-//		credentials {
-//			username = "tanya1403"
-//			password = "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"
-//		}
-//	}
 }
 
 dependencies {
@@ -111,4 +102,8 @@ kotlin {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.withType<ShadowJar> {
+	isZip64 = true
 }
