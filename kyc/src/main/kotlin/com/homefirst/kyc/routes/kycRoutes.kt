@@ -15,8 +15,10 @@ fun Route.kycRoutes(
     route("/kyc") {
 
         get("/sayhello") {
-            call.respond ("<html> " + "<title>" + "HomeFirst Microservice" + "</title>" + "<body><h1>"
-                    + "Successfully deployed KYC Service." + "</h1></body>" + "</html> ")
+            call.respondText(
+                "<html><title>HomeFirst Microservice</title><body><h1>Successfully deployed KYC Service.</h1></body></html>",
+                ContentType.Text.Html
+            )
         }
 
         get("/validate.aadhaar/{aadhaarNumber}") {
