@@ -6,4 +6,5 @@ COPY build/libs/kyc-0.0.1-SNAPSHOT-all.jar app.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "app.jar"]
+# 👇 Set the active profile to 'dev'
+CMD ["java", "-Dspring.profiles.active=dev", "-jar", "app.jar"]
