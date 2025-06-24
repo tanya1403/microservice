@@ -104,13 +104,6 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-tasks.withType<ShadowJar> {
-	isZip64 = true
-}
 
 
-tasks.named<ShadowJar>("shadowJar") {
-	from(sourceSets.main.get().resources.srcDirs) {
-		into("BOOT-INF/classes")
-	}
-}
+
