@@ -71,4 +71,4 @@ jobs:
             docker stop kyc || true && docker rm kyc || true
 
             # Run the Docker container with the correct port mapping
-            docker run -d --name kyc -p 8444:8080 ${{ secrets.DOCKER_HUB_USERNAME }}/kyc-service:${{ needs.build.outputs.tag }}
+            docker run -d --name kyc -p 8444:8080 -e SPRING_PROFILES_ACTIVE=dev ${{ secrets.DOCKER_HUB_USERNAME }}/kyc-service:${{ needs.build.outputs.tag }}
