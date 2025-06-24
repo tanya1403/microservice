@@ -30,7 +30,7 @@ repositories {
 dependencies {
 	// Spring
 	implementation("org.springframework.boot:spring-boot-starter-web")
-//	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 //	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
@@ -42,7 +42,7 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-//	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("org.springframework.security:spring-security-test")
 
 	// External / Custom
 //	implementation("com.homefirst:utilities:1.0.4")
