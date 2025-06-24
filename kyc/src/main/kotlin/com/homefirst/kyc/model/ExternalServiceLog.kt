@@ -1,8 +1,7 @@
 package com.homefirst.kyc.model
 
-import homefirst.utilities.utils.DateTimeUtils
+import com.homefirst.utilities.utils.DateTimeUtils
 import jakarta.persistence.*
-import org.hibernate.annotations.GenericGenerator
 import java.util.UUID
 
 

@@ -1,9 +1,9 @@
 package com.homefirst.kyc.model
 
 
-import homefirst.utilities.utils.DateTimeUtils.getCurrentDateTimeInIST
-import homefirst.utilities.utils.NA
-import homefirst.utilities.utils.isNotNullOrNA
+import com.homefirst.kyc.utils.NA
+import com.homefirst.utilities.utils.DateTimeUtils.getCurrentDateTimeInIST
+import com.homefirst.utilities.utils.isNotNullOrNA
 import jakarta.persistence.*
 import org.json.JSONException
 import org.json.JSONObject

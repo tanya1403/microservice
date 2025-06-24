@@ -30,8 +30,8 @@ repositories {
 //			password = "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"
 //		}
 		credentials {
-			username = project.findProperty("gpr.user") as String?
-			password = project.findProperty("gpr.key") as String?
+			username = "tanya1403"
+			password = "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"
 		}
 	}
 }
@@ -54,7 +54,7 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 
 	// External / Custom
-	implementation("com.homefirst:utilities:1.0.3")
+	implementation("com.homefirst:utilities:1.0.4")
 	implementation("org.json:json:20230227")
 	runtimeOnly("com.mysql:mysql-connector-j")
 

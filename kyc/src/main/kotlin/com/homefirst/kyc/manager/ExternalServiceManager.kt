@@ -4,9 +4,9 @@ package com.homefirst.kyc.manager
 
 import com.homefirst.kyc.model.ExternalServiceLog
 import com.homefirst.kyc.repository.ExternalServiceLogRepository
-import com.homefirst.kyc.utils.EnExternalServiceName
-import com.homefirst.kyc.utils.EnUserRequestStatus
-import homefirst.utilities.utils.DateTimeUtils
+import com.homefirst.utilities.utils.DateTimeUtils.getCurrentDateTimeInIST
+import com.homefirst.utilities.utils.EnExternalServiceName
+import com.homefirst.utilities.utils.EnUserRequestStatus
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -47,7 +47,7 @@ class ExternalServiceManager(
                 this.objectName = objectName
             }
 
-            updateDatetime = DateTimeUtils.getCurrentDateTimeInIST()
+            updateDatetime = getCurrentDateTimeInIST()
 
         }
 

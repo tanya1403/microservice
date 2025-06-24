@@ -7,7 +7,7 @@ import com.homefirst.kyc.model.Creds
 import com.homefirst.kyc.model.ExternalServiceLog
 import com.homefirst.kyc.repository.ExternalServiceLogRepository
 import com.homefirst.kyc.security.AppProperty
-import com.homefirst.kyc.utils.CryptoUtils
+import com.homefirst.utilities.utils.UtilsCryptoUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -16,7 +16,7 @@ class ExternalServiceLogger (
     @Autowired private  val externalServiceLogRepository: ExternalServiceLogRepository,
     @Autowired private val credsManager: CredsManager,
     @Autowired private val appProperty: AppProperty,
-    @Autowired private val cryptoUtils: CryptoUtils
+    @Autowired private val cryptoUtils: UtilsCryptoUtils
 
 
     ){

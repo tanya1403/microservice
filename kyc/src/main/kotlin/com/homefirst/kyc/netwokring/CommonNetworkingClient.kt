@@ -2,12 +2,8 @@ package com.homefirst.kyc.netwokring
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.homefirst.kyc.security.AppProperty
-import com.homefirst.kyc.utils.CONTENT_TYPE
-import com.homefirst.kyc.utils.CONTENT_TYPE_FORM_URLENCODED
 import com.homefirst.kyc.utils.Errors
-import com.homefirst.kyc.utils.MimeMap
-import homefirst.utilities.utils.LocalHTTPResponse
-import homefirst.utilities.utils.LoggerUtils
+import com.homefirst.utilities.utils.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request

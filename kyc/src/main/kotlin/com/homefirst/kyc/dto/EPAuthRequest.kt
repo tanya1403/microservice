@@ -1,10 +1,6 @@
 package com.homefirst.kyc.dto
 
-import com.homefirst.kyc.utils.AUTHORIZATION
-import com.homefirst.kyc.utils.ORG_ID
-import com.homefirst.kyc.utils.SESSION_PASSCODE
-import com.homefirst.kyc.utils.getClientCreds
-import homefirst.utilities.utils.*
+import com.homefirst.utilities.utils.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.*
 import io.ktor.server.request.*

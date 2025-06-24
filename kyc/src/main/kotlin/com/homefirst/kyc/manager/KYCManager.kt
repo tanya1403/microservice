@@ -1,19 +1,15 @@
 package com.homefirst.kyc.manager
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.homefirst.kyc.client.KarzaClient
 import com.homefirst.kyc.dto.EPAuthRequest
 import com.homefirst.kyc.helper.ExternalServiceLogger
 import com.homefirst.kyc.model.KYCDocument
 import com.homefirst.kyc.model.VehicleRcInfo
 import com.homefirst.kyc.repository.DocumentRepositoryMaster
-import com.homefirst.kyc.security.AppProperty
-import com.homefirst.kyc.utils.CryptoUtils
-import com.homefirst.kyc.utils.EnExternalServiceType
 import com.homefirst.kyc.utils.EnMyObject
-import com.homefirst.kyc.utils.EnUserRequestStatus
+import com.homefirst.utilities.utils.*
+import com.homefirst.utilities.utils.LoggerUtils.log
 import homefirst.utilities.utils.*
-import homefirst.utilities.utils.LoggerUtils.log
 import org.json.JSONObject
 import org.springframework.beans.BeanUtils
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,7 +20,7 @@ import org.springframework.stereotype.Component
 class KYCManager(
     @Autowired private val karzaClient: KarzaClient,
     @Autowired val externalServiceLogger: ExternalServiceLogger,
-    @Autowired private val cryptoUtils: CryptoUtils,
+    @Autowired private val cryptoUtils: UtilsCryptoUtils,
     @Autowired val documentRepositoryMaster: DocumentRepositoryMaster,
     ) {
 
@@ -59,7 +55,7 @@ class KYCManager(
             KarzaClient.EnAPIDetail.AUTH_PAN, null, panReqBody
         )
 
-        esLogger.setResponseCode(apiCallResponse.statusCode.toString())
+//        esLogger.setResponseCode(apiCallResponse.statusCode.toString())
         esLogger.setServiceType(EnExternalServiceType.AUTHENTICATE.value)
 
         if (!apiCallResponse.isSuccess) {
@@ -117,7 +113,7 @@ class KYCManager(
 
         val nKycDocument = KYCDocument().apply {
             BeanUtils.copyProperties(kycDocument, this)
-            documentId = cryptoUtils.decryptAes(kycDocument.documentId)
+            documentId = cryptoUtils.decryptAes(kycDocument.documentId!!)
         }
 
         esLogger.apply {
@@ -176,7 +172,7 @@ class KYCManager(
 
         apiCallResponse = karzaClient.clientAPICall(KarzaClient.EnAPIDetail.AUTH_VEHICLE_RC, null, requestBody)
 
-        esLogger.setResponseCode(apiCallResponse.statusCode.toString())
+//        esLogger.setResponseCode(apiCallResponse.statusCode.toString())
         esLogger.setServiceType(EnExternalServiceType.AUTHENTICATE.value)
 
         if (!apiCallResponse.isSuccess) {

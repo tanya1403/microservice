@@ -1,7 +1,7 @@
 package com.homefirst.kyc.model
 
-import homefirst.utilities.utils.DateTimeUtils.getCurrentDateTimeInIST
-import homefirst.utilities.utils.NA
+import com.homefirst.kyc.utils.NA
+import com.homefirst.utilities.utils.DateTimeUtils.getCurrentDateTimeInIST
 import jakarta.persistence.*
 import org.hibernate.annotations.ColumnDefault
 
