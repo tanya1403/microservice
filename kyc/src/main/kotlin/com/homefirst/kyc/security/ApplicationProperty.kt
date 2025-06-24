@@ -1,22 +1,12 @@
 package com.homefirst.kyc.security
 
 
-import com.google.auth.oauth2.GoogleCredentials
-import com.google.firebase.FirebaseApp
-import com.google.firebase.FirebaseApp.*
-import com.google.firebase.FirebaseOptions
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
-import org.springframework.core.io.ClassPathResource
 import org.springframework.scheduling.annotation.EnableAsync
-import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import java.io.IOException
-import java.util.*
+
 
 enum class EnvProfile(
     val value : String) {
