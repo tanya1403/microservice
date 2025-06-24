@@ -14,7 +14,7 @@ fun Route.kycRoutes(
 ) {
     route("/kyc") {
 
-        get("/hello") {
+        get("/sayhello") {
             call.respond ("<html> " + "<title>" + "HomeFirst Microservice" + "</title>" + "<body><h1>"
                     + "Successfully deployed KYC Service." + "</h1></body>" + "</html> ")
         }
