@@ -107,3 +107,8 @@ tasks.withType<Test> {
 tasks.withType<ShadowJar> {
 	isZip64 = true
 }
+
+
+tasks.named<ShadowJar>("shadowJar") {
+	from(sourceSets.main.get().resources)
+}
